@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>about us</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/about.css">
+</head>
+<body>
+    <%- include("../include/navbar.ejs")%>
+
+    <div class="container text-center">
+        <h1 class="mb-4 text-primary">About Hostel Maintenance System</h1>
+        
+        <div class="row justify-content-center">
+            <div class="col-md-6 mb-4">
+                <div class="card">
+                    <div class="card-header bg-primary">Introduction</div>
+                    <div class="card-body">
+                        <p>The Hostel Maintenance System helps students report issues related to cleaning, electrical equipment, plumbing, and mess food. It streamlines maintenance requests and ensures timely resolution.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 mb-4">
+                <div class="card">
+                    <div class="card-header bg-primary">Key Features</div>
+                    <div class="card-body">
+                        <ul class="list-unstyled">
+                            <li>✔ Easy complaint registration</li>
+                            <li>✔ Issue categorization (Cleaning, Electrical, Plumbing, Mess Food)</li>
+                            <li>✔ User authentication for secure access</li>
+                            <li>✔ Real-time status updates on complaints</li>
+                            <li>✔ Dedicated staff access</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 mb-4">
+                <div class="card">
+                    <div class="card-header bg-primary">How It Works</div>
+                    <div class="card-body">
+                        <p>Users log in, submit complaints, and the respective personnel work on resolving the issues. Updates are provided to the students until the problem is resolved.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 mb-4">
+                <div class="card">
+                    <div class="card-header bg-primary">Benefits</div>
+                    <div class="card-body">
+                        <p>The system increases efficiency, ensures transparency, improves communication, and helps maintain hostel infrastructure effectively.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <%- include("../include/footer.ejs") %>
+</body>
+</html>

@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>All Reviews</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            background: #f0f4f8;
+            margin: 0;
+            padding: 20px;
+        }
+
+        h2 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 30px;
+        }
+
+        ul {
+            list-style: none;
+            padding: 0;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        li {
+            background: #fff;
+            border-radius: 12px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            padding: 20px;
+            margin-bottom: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            animation: fadeInUp 0.5s ease forwards;
+            opacity: 0;
+        }
+
+        .review-left {
+            flex: 1;
+        }
+
+        .review-right {
+            text-align: right;
+        }
+
+        .review-left strong {
+            font-size: 1.2em;
+            color: #1e88e5;
+        }
+
+        .tag {
+            background: #e3f2fd;
+            padding: 5px 10px;
+            border-radius: 20px;
+            display: inline-block;
+            margin: 5px 0;
+            font-size: 0.9em;
+            color: #1565c0;
+        }
+
+        .review-text {
+            margin: 10px 0;
+            font-size: 1em;
+            color: #444;
+        }
+
+        .meta-info {
+            font-size: 0.85em;
+            color: #888;
+        }
+
+        .rating {
+            background-color: #ffeb3b;
+            color: #000;
+            padding: 8px 12px;
+            border-radius: 20px;
+            font-weight: bold;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                transform: translateY(20px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+    </style>
+</head>
+<body>
+    <h2>All Reviews</h2>
+    <ul>
+        <% reviews.forEach((review, index) => { %>
+            <li style="animation-delay: <%= index * 0.1 %>s">        
+                <div class="review-left">
+                    <strong><%= review.name %></strong>
+                    <div class="tag">Room: <%= review.room %></div>
+                    <div class="review-text"><%= review.reviewText %></div>
+                    <div class="meta-info">
+                        📅 <%= new Date(review.date).toLocaleDateString() %><br>
+                        🍽️ <%= review.mealType %>
+                    </div>
+                </div>
+                <div class="review-right">
+                    <div class="rating">⭐ <%= review.rating %>/5</div>
+                </div>
+            </li>
+        <% }) %>
+    </ul>
+</body>
+</html>

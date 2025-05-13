@@ -1,0 +1,26 @@
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f8f9fa;
+}
+.container {
+    padding: 100px;
+    margin-top: 50px;
+}
+.card {
+    border: none;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    transition: transform 0.3s;
+}
+.card:hover {
+    transform: scale(1.05);
+}
+.card-header {
+    background-color: #007bff;
+    color: white;
+    font-weight: bold;
+}
+.card-body {
+    background-color: white;
+    border-radius: 10px;
+}

@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Issue Details</title>
+  <style>
+    /* Basic Reset */
+    body, html {
+      margin: 0;
+      padding: 0;
+      font-family: 'Arial', sans-serif;
+      background: #e0e0e0;
+      height: 100%;
+    }
+
+    /* Container */
+    .container {
+      background-color: #ffffff;
+      padding: 40px;
+      border-radius: 12px;
+      max-width: 700px;
+      margin: 50px auto;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      animation: fadeIn 1s ease-out;
+    }
+
+    /* Heading */
+    h1 {
+      text-align: center;
+      margin-bottom: 25px;
+      font-size: 2rem;
+      color: #333;
+    }
+
+    /* Label Styles */
+    label {
+      font-weight: bold;
+      color: #555;
+      font-size: 1.1rem;
+      margin-bottom: 5px;
+      display: inline-block;
+    }
+
+    /* Form Styles */
+    input, textarea, select {
+      width: 100%;
+      padding: 12px;
+      margin-top: 6px;
+      margin-bottom: 15px;
+      border-radius: 8px;
+      border: 1px solid #ddd;
+      box-sizing: border-box;
+      font-size: 1rem;
+      transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    input:focus, textarea:focus, select:focus {
+      border-color: #4CAF50;
+      box-shadow: 0 0 5px rgba(76, 175, 80, 0.3);
+    }
+
+    /* Button Styling */
+    .btn {
+      padding: 12px 18px;
+      background: #4CAF50;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-size: 1rem;
+      cursor: pointer;
+      width: 100%;
+      transition: background 0.3s ease, transform 0.2s ease;
+    }
+
+    .btn:hover {
+      background: #45a049;
+      transform: translateY(-2px);
+    }
+
+    .btn:active {
+      transform: translateY(1px);
+    }
+
+    .btn:disabled {
+      background: #ccc;
+      cursor: not-allowed;
+      transform: none;
+}
+
+
+    /* Form section spacing */
+    p {
+      margin: 15px 0;
+    }
+
+    /* Upload Image Button (Staff only) */
+    .upload-btn {
+      display: flex;
+      justify-content: center;
+      margin-top: 20px;
+    }
+
+    /* Animation for fading in */
+    @keyframes fadeIn {
+      0% {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      100% {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
+      .container {
+        padding: 25px;
+      }
+      h1 {
+        font-size: 1.5rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Issue Details</h1>
+
+    <form action="/issues/<%= issue._id %>?_method=PUT" method="POST">
+        <!-- Basic fields -->
+        <p>
+          <label for="name">Name:</label>
+          <input type="text" name="name" id="name" value="<%= issue.name %>" <%= userRole === 'staff' ? 'readonly' : '' %> />
+        </p>
+      
+        <p>
+          <label for="room">Room:</label>
+          <input type="text" name="room" id="room" value="<%= issue.room %>" <%= userRole === 'staff' ? 'readonly' : '' %> />
+        </p>
+      
+        <p>
+          <label for="issue_type">Type:</label>
+          <input type="text" name="issue_type" id="issue_type" value="<%= issue.issue_type %>" readonly />
+        </p>
+      
+        <p>
+          <label for="description">Description:</label>
+          <textarea name="description" id="description" rows="4"><%= issue.description %></textarea>
+        </p>
+      
+        <button class="btn" type="submit" <%= userRole === 'staff' ? 'disabled' : '' %>>Update Issue</button>
+      </form>
+
+        <% if (userRole === 'staff') { %>
+        <div class="upload-btn">
+          <form action="/issues/<%= issue._id %>/after-image" method="POST" enctype="multipart/form-data">
+            <p>
+              <label for="status">Status:</label>
+              <select name="status" id="status">
+                <option value="Pending" <%= issue.status === 'Pending' ? 'selected' : '' %>>Pending</option>
+                <option value="In Progress" <%= issue.status === 'In Progress' ? 'selected' : '' %>>In Progress</option>
+                <option value="Resolved" <%= issue.status === 'Resolved' ? 'selected' : '' %>>Resolved</option>
+              </select>
+            </p>
+            <label for="afterImage">Upload After Image:</label>
+            <input type="file" name="afterImage" id="afterImage" accept="image/*" required />
+            <button class="btn" type="submit">Upload Image</button>
+          </form>
+        </div>
+      <% } %>
+    </div>
+</body>
+</html>

@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Submit Cleaning Query</title>
+    <link rel="stylesheet" href="/styles.css">
+</head>
+<style>
+ 
+ body {
+  font-family: 'Arial', sans-serif;
+  background: linear-gradient(135deg, #2E5077, #4DA1A9, #79D7BE, #F6F4F0);
+  background-size: 300% 300%;
+  animation: gradientAnimation 6s ease infinite;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  margin: 0;
+}
+
+.form-container {
+  background: linear-gradient(135deg, #B7B1F2, #FDB7EA, #FFDCCC, #FBF3B9);;
+  border-radius: 15px;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+  padding: 40px;
+  width: 500px;
+  text-align: center;
+  animation: fadeIn 1s ease-in-out;
+}
+
+h2 {
+  color: #333;
+  margin-bottom: 20px;
+  font-size: 30px;
+  font-weight: bold;
+}
+
+.input-group {
+  margin-bottom: 15px;
+  text-align: left;
+}
+
+.input-group label {
+  display: block;
+  font-size: 20px;
+  font-weight: 600;
+  color: #555;
+  margin-bottom: 5px;
+}
+
+.input-group input,
+.input-group select,
+.input-group textarea {
+  width: 100%;
+  padding: 10px;
+  font-size: 18px;
+  border: 2px solid #ddd;
+  border-radius: 8px;
+  outline: none;
+  transition: all 0.3s ease-in-out;
+}
+
+.input-group input:focus,
+.input-group select:focus,
+.input-group textarea:focus {
+  border-color: #FDB7EA;
+  box-shadow: 0 0 8px rgba(253, 183, 234, 0.7);
+}
+
+textarea {
+  resize: vertical;
+}
+
+.btn-submit {
+  background: linear-gradient(135deg, #B7B1F2, #FDB7EA);
+  color: #fff;
+  padding: 12px 25px;
+  font-size: 16px;
+  font-weight: bold;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  width: 100%;
+}
+
+.btn-submit:hover {
+  transform: scale(1.05);
+  box-shadow: 0 8px 15px rgba(183, 177, 242, 0.5);
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes gradientAnimation {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+</style>
+<body>
+    <div class="form-container">
+        <h2>Submit Your Query</h2>
+        <form action="/services/<%= issueType %>" method="POST" enctype="multipart/form-data" onsubmit="return validateForm()">
+          <div class="input-group">
+            <label for="name">Name</label>
+            <input type="text" id="name" name="name" required pattern="^[A-Za-z\s]+$" title="Please enter a valid name (letters only)" />
+          </div>
+          <div class="input-group">
+            <label for="room">Room Number</label>
+            <input type="text" id="room" name="room" required pattern="^[0-9]+$" title="Please enter a valid room number (numbers only)" />
+          </div>
+          <div class="input-group">
+            <label for="issue_type">Issue Type</label>
+            <select id="issue_type" name="issue_type" required>
+              <option value="cleaning">Cleaning</option>
+              <option value="electrical">Electrical</option>
+              <option value="plumbing">Plumbing</option>
+              <option value="food">Food</option>
+            </select>
+          </div>
+          <div class="input-group">
+            <label for="description">Description</label>
+            <textarea id="description" name="description" rows="4" required></textarea>
+          </div>
+
+          <div class="input-group">
+            <label for="image">Upload Issue Image</label>
+            <div class="box">
+            <input type="file" id="image" name="beforeImage" accept="image/*" /></div>
+        </div>
+
+          <button type="submit" class="btn-submit">Submit</button>
+        </form>
+      </div>
+      
+      <script>
+        function validateForm() {
+          const name = document.getElementById("name").value.trim();
+          const room = document.getElementById("room").value.trim();
+      
+          const namePattern = /^[A-Za-z\s]+$/;
+          const roomPattern = /^[0-9]+$/;
+      
+          if (!namePattern.test(name)) {
+            alert("Please enter a valid name (letters only).");
+            return false;
+          }
+      
+          if (!roomPattern.test(room)) {
+            alert("Please enter a valid room number (numbers only).");
+            return false;
+          }
+      
+          return true;
+        }
+      </script>      
+</body>
+</html>

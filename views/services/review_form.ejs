@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Submit a Review</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #e2e8f0, #f7fafc); /* Soft light background for a fresh look */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            color: #333;
+        }
+
+        .form-container {
+            background: #ffffff; /* Clean white background for form */
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 15px 25px rgba(0, 0, 0, 0.1);
+            width: 400px;
+            animation: slideIn 0.8s ease-in-out;
+            border: 1px solid #ddd; /* Light border for subtle definition */
+        }
+
+        h2 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #2c3e50; /* Dark grey for the title */
+            font-size: 24px;
+        }
+
+        label {
+            display: block;
+            margin-top: 15px;
+            font-size: 16px;
+            font-weight: bold;
+            color: #34495e; /* Slightly lighter dark grey */
+        }
+
+        input, select, textarea {
+            width: 100%;
+            padding: 12px;
+            margin-top: 8px;
+            margin-bottom: 15px;
+            border-radius: 8px;
+            border: 1px solid #ddd;
+            font-size: 14px;
+            transition: all 0.3s ease;
+            background-color: #f9f9f9; /* Light background for inputs */
+        }
+
+        input:focus, select:focus, textarea:focus {
+            outline: none;
+            border-color: #3498db; /* Blue border on focus for better visibility */
+            box-shadow: 0 0 8px rgba(52, 152, 219, 0.5);
+        }
+
+        button {
+            padding: 14px;
+            background-color: #3498db; /* Soft blue for the button */
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-weight: bold;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s;
+        }
+
+        button:hover {
+            background-color: #2980b9; /* Slightly darker blue on hover */
+        }
+
+        button:active {
+            background-color: #1f6f8b; /* Even darker blue on click */
+        }
+
+        /* Style for the Show Reviews button */
+        .show-reviews-button {
+            display: block;
+            width: 100%;
+            padding: 14px;
+            margin-top: 20px; /* Space between form and button */
+            background-color: #2ecc71; /* Green color for the Show Reviews button */
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-weight: bold;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s;
+        }
+
+        .show-reviews-button:hover {
+            background-color: #27ae60; /* Slightly darker green on hover */
+        }
+
+        .show-reviews-button:active {
+            background-color: #1e8449; /* Even darker green on click */
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @media (max-width: 600px) {
+            .form-container {
+                width: 90%;
+                padding: 30px;
+            }
+
+            h2 {
+                font-size: 22px;
+            }
+        }
+
+    </style>
+</head>
+<body>
+    <div class="form-container">
+        <h2>Submit a Review</h2>
+        <form action="/reviews" method="POST">
+            <label for="name">Name:</label>
+            <input type="text" name="name" id="name" required pattern="[A-Za-z ]+" title="Name should contain letters only">
+
+            <label for="room">Room Number:</label>
+            <input type="text" name="room" id="room" required pattern="[0-9]+" title="Room number should contain numbers only">
+
+            <label for="date">Date:</label>
+            <input type="date" name="date" id="date">
+
+            <label for="mealType">Meal Type:</label>
+            <select name="mealType" id="mealType" required>
+                <option value="">-- Select --</option>
+                <option value="Lunch">Lunch</option>
+                <option value="Dinner">Dinner</option>
+            </select>
+
+            <label for="rating">Rating (1–5):</label>
+            <input type="number" name="rating" id="rating" min="1" max="5" required>
+
+            <label for="reviewText">Comment:</label>
+            <textarea name="reviewText" id="reviewText" required></textarea>
+
+            <button type="submit">Submit Review</button>
+        </form>
+
+        <!-- Show Reviews Button -->
+        <button class="show-reviews-button" onclick="window.location.href='/reviews'">Show Reviews</button>
+    </div>
+</body>
+</html>

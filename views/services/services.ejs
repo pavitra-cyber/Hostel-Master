@@ -1,0 +1,33 @@
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Services</title>
+</head>
+<body>
+    <h3>All Listings</h3>
+
+    <div class="row row-cols-lg-4 row-cols-md-2 row-cols-es-1">
+      <% for(let staff of allServices){%>
+       <a class="listing-img" href="/listings/<%= staff._id %>">
+         <div class="card">
+          <div class="imgs">
+          </div>
+           <div class="card-img-overlay"></div>
+           <div class="card-body">
+             <p class="card-text">
+                <h2><%= staff.name %></h2>
+                <img src="<%= staff.imageUrl %>" class="img-fluid" alt="<%= staff.name %>">
+                <p><strong>Role:</strong> <%= staff.role %></p>
+                <p><strong>Contact:</strong> <%= staff.contact %></p>
+                <p><%= staff.description %></p>
+                <a href="/services" class="btn btn-secondary">Back</a>
+            </p>
+           </div>
+         </div>
+       </a>
+         <%}%>
+    </div>
+</body>
+</html> -->
