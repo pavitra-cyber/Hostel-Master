@@ -25,6 +25,7 @@
   border-radius: 15px;
   box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
   padding: 40px;
+  margin-top: 100px;
   width: 500px;
   text-align: center;
   animation: fadeIn 1s ease-in-out;
@@ -91,6 +92,15 @@ textarea {
   box-shadow: 0 8px 15px rgba(183, 177, 242, 0.5);
 }
 
+.btn-submit:disabled {
+  background: #ccc;
+  cursor: not-allowed;
+  color: #666;
+  box-shadow: none;
+  transform: none;
+}
+
+
 @keyframes fadeIn {
   from {
     opacity: 0;
@@ -116,6 +126,7 @@ textarea {
 
 </style>
 <body>
+  <%- include("../include/navbar.ejs")%>
     <div class="form-container">
         <h2>Submit Your Query</h2>
         <form action="/services/<%= issueType %>" method="POST" enctype="multipart/form-data" onsubmit="return validateForm()">
@@ -133,7 +144,6 @@ textarea {
               <option value="cleaning">Cleaning</option>
               <option value="electrical">Electrical</option>
               <option value="plumbing">Plumbing</option>
-              <option value="food">Food</option>
             </select>
           </div>
           <div class="input-group">
@@ -146,8 +156,7 @@ textarea {
             <div class="box">
             <input type="file" id="image" name="beforeImage" accept="image/*" /></div>
         </div>
-
-          <button type="submit" class="btn-submit">Submit</button>
+          <button type="submit" class="btn-submit" <%= session.user && session.user.role === 'staff' ? 'disabled' : '' %>>Submit</button>
         </form>
       </div>
       

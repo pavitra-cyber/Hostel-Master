@@ -9,6 +9,7 @@
             font-family: 'Arial', sans-serif;
             background: linear-gradient(135deg, #e2e8f0, #f7fafc); /* Soft light background for a fresh look */
             display: flex;
+            padding-top: 100px;
             justify-content: center;
             align-items: center;
             min-height: 100vh;
@@ -128,6 +129,7 @@
     </style>
 </head>
 <body>
+    <%- include("../include/navbar.ejs")%>
     <div class="form-container">
         <h2>Submit a Review</h2>
         <form action="/reviews" method="POST">

@@ -14,6 +14,11 @@ const issueSchema = new mongoose.Schema({
     afterImage: {
         data: Buffer,
         contentType: String
+    },
+    userId: {  // Reference to the user (Login model)
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'login',  // Reference to 'login' model
+        required: true
     }
 });
 

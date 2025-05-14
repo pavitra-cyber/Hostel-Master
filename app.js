@@ -64,6 +64,20 @@ function isStaff(req, res, next) {
     res.status(403).send("Access denied: staff only");
 }
 
+//if user then only submit query
+function isUser(req, res, next) {
+    if (!req.session.user) {
+        return res.status(401).send("Unauthorized. Please log in.");
+    }
+
+    if (req.session.user.role !== 'user') {
+        return res.status(403).send("Access denied: only users can submit queries.");
+    }
+
+    next();
+}
+
+
 // Auth
 app.get("/login", (req, res) => {
     res.render('include/login.ejs');
@@ -164,11 +178,11 @@ app.get('/services/plumbing', async (req, res) => {
 });
 
 // Form Submission
-app.get('/services/cleaning/form', (req, res) => {
-    res.render('listing/form', { issueType: "cleaning" });
+app.get('/services/cleaning/form', isLoggedIn, (req, res) => {
+    res.render('listing/form', { issueType: "cleaning", session: req.session });
 });
 
-app.post('/services/cleaning', upload.single('beforeImage'), async (req, res) => {
+app.post('/services/cleaning', isUser, upload.single('beforeImage'), async (req, res) => {
     try {
         const { name, room, issue_type, description } = req.body;
 
@@ -184,7 +198,8 @@ app.post('/services/cleaning', upload.single('beforeImage'), async (req, res) =>
             description,
             status: "Pending",
             beforeImage,
-            afterImage: null
+            afterImage: null,
+            userId: req.session.user.id  // Link issue to logged-in user
         });
 
         if (issue_type === "cleaning") return res.redirect('/services/cleaning');
@@ -268,10 +283,10 @@ app.get("/issues/:id/images", async (req, res) => {
 // Upload After Image (staff only)
 app.post("/issues/:id/after-image", isStaff, upload.single("afterImage"), async (req, res) => {
     const { status } = req.body;
-    const issue = await Issue.findById(req.params.id);
+    const issue = await Issue.findById(req.params.id).populate('userId');  // Populate userId to get user details
     if (!issue) return res.status(404).send("Issue not found");
 
-      // Update after image
+    // Update after image
     if (req.file) {
         issue.afterImage = {
             data: req.file.buffer,
@@ -282,6 +297,18 @@ app.post("/issues/:id/after-image", isStaff, upload.single("afterImage"), async 
     // Update status
     if (status) {
         issue.status = status;
+         // If issue is marked as "Resolved", send an email notification
+        if (status === "Resolved") {
+            const sendMail = require("./init/sendMail");
+
+            // Make sure userId is populated
+            const studentEmail = issue.userId.email;  // Get the student's email
+            console.log(studentEmail);
+            const subject = "Your Hostel Issue has been Resolved!";
+            const message = `Hi ${issue.userId.firstname} ${issue.userId.lastname}, your issue titled "${issue.issue_type}" has been marked as resolved.`;
+
+            await sendMail(studentEmail, subject, message);
+        }
     }
 
     // Redirect to issue detail page or services
