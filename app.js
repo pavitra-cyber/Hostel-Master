@@ -104,7 +104,7 @@ app.post("/register", async (req, res) => {
     const newUser = new Login({ firstname, lastname, email, password, role });
     await newUser.save();
     //console.log(req.body);
-    res.redirect("/home");
+    res.redirect("/login#");
 });
 
 app.post("/login", async (req, res) => {
